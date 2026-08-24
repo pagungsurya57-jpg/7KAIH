@@ -3769,7 +3769,21 @@ function toggleLoginPasswordVisibility() {
             try { const res = await (await fetch(apiKey, { method: 'POST', body: JSON.stringify({ action: 'add_user', role: roleUpper, nama:n, kelas:k, username:u, password:p, wa_ortu:w }) })).json(); if(res.status==='success'){ await syncWithServer(true); showToast(res.message); } else showToast(res.message); } finally { hideGlobalLoader(); }
         }
         
-<!-- Load Firebase SDK sebagai Module -->
+        async function submitNewKelas() {
+            const nk = document.getElementById('addKName').value.trim(); if(!nk) return showToast("Isi nama kelas!");
+            showGlobalLoader("Menyimpan...");
+            try { const res = await (await fetch(apiKey, { method: 'POST', body: JSON.stringify({ action: 'add_kelas', nama_kelas:nk }) })).json(); if(res.status==='success'){ document.getElementById('addKName').value=""; await syncWithServer(true); } else showToast(res.message); } finally { hideGlobalLoader(); }
+        }
+        
+        async function submitNewDashboard() {
+            const k = document.getElementById('addDKategori').value, t = document.getElementById('addDTitle').value, c = document.getElementById('addDContent').value;
+            if(!t || !c) return showToast("Judul dan isi wajib diisi!");
+            showGlobalLoader("Menerbitkan...");
+            try { const res = await (await fetch(apiKey, { method: 'POST', body: JSON.stringify({ action: 'add_dashboard', kategori:k, judul:t, isi:c }) })).json(); if(res.status==='success'){ document.getElementById('addDTitle').value=""; document.getElementById('addDContent').value=""; await syncWithServer(true); } else showToast(res.message); } finally { hideGlobalLoader(); }
+        }
+
+
+        <!-- Load Firebase SDK sebagai Module -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
