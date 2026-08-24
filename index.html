@@ -3781,24 +3781,6 @@ function toggleLoginPasswordVisibility() {
             showGlobalLoader("Menerbitkan...");
             try { const res = await (await fetch(apiKey, { method: 'POST', body: JSON.stringify({ action: 'add_dashboard', kategori:k, judul:t, isi:c }) })).json(); if(res.status==='success'){ document.getElementById('addDTitle').value=""; document.getElementById('addDContent').value=""; await syncWithServer(true); } else showToast(res.message); } finally { hideGlobalLoader(); }
         }
-
-
-     <!-- Load Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-  // Konfigurasi milik Anda
-  const firebaseConfig = {
-    apiKey: "AIzaSyDmfYTAmlYwjt4dkOQNYdfJILTIYfkR93s",
-    authDomain: "kaih-c21f6.firebaseapp.com",
-    projectId: "kaih-c21f6",
-    storageBucket: "kaih-c21f6.firebasestorage.app",
-    messagingSenderId: "7553765569",
-    appId: "1:7553765569:web:c39c270b8ef75aae24c440"
-  };
-
-  // Inisialisasi Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+    </script>
 </body>
 </html>
