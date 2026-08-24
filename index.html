@@ -3783,11 +3783,11 @@ function toggleLoginPasswordVisibility() {
         }
 
 
-        <!-- Load Firebase SDK sebagai Module -->
+     <!-- Load Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+  // Konfigurasi milik Anda
   const firebaseConfig = {
     apiKey: "AIzaSyDmfYTAmlYwjt4dkOQNYdfJILTIYfkR93s",
     authDomain: "kaih-c21f6.firebaseapp.com",
@@ -3797,45 +3797,8 @@ function toggleLoginPasswordVisibility() {
     appId: "1:7553765569:web:c39c270b8ef75aae24c440"
   };
 
+  // Inisialisasi Firebase
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Daftarkan fungsi ke window agar bisa dipanggil oleh event onclick di HTML
-  window.submitNewKelas = async function() {
-    const nk = document.getElementById('addKName').value.trim(); 
-    if(!nk) return showToast("Isi nama kelas!");
-    
-    showGlobalLoader("Menyimpan...");
-    try {
-      await addDoc(collection(db, "kelas"), { nama_kelas: nk });
-      document.getElementById('addKName').value = "";
-      await syncWithServer(true);
-    } catch (error) {
-      showToast(error.message);
-    } finally {
-      hideGlobalLoader();
-    }
-  };
-
-  window.submitNewDashboard = async function() {
-    const k = document.getElementById('addDKategori').value;
-    const t = document.getElementById('addDTitle').value;
-    const c = document.getElementById('addDContent').value;
-    
-    if(!t || !c) return showToast("Judul dan isi wajib diisi!");
-    
-    showGlobalLoader("Menerbitkan...");
-    try {
-      await addDoc(collection(db, "dashboard"), { kategori: k, judul: t, isi: c });
-      document.getElementById('addDTitle').value = "";
-      document.getElementById('addDContent').value = "";
-      await syncWithServer(true);
-    } catch (error) {
-      showToast(error.message);
-    } finally {
-      hideGlobalLoader();
-    }
-  };
 </script>
 </body>
 </html>
